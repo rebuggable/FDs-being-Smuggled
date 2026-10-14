@@ -4,7 +4,7 @@ DOCKER_BIN := $(shell command -v docker)
 GOOS ?= linux
 GOARCH ?= amd64
 
-.PHONY: build all image run executable clean engine
+.PHONY: build all image run executable clean engine dependencies
 
 eq = $(if $(subst $(1),,$(2))$(subst $(2),,$(1)),,True)
 
@@ -49,6 +49,10 @@ endef
 define deleteImage
 	$(DOCKER_BIN) image inspect $(1) >/dev/null 2>&1 && $(DOCKER_BIN) image rm $(1)
 endef
+
+# make dependencies
+dependencies:
+  $(GO_BIN) mod download
 
 # make build all
 # make build executable
