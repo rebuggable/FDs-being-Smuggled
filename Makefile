@@ -52,7 +52,7 @@ endef
 
 # make dependencies
 dependencies:
-  $(GO_BIN) mod download
+	$(GO_BIN) mod download
 
 # make build all
 # make build executable
