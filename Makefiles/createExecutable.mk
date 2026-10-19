@@ -1,15 +1,17 @@
 include Makefiles/binaries.mk
+include Makefiles/dispatch.mk
 
 GOOS ?= linux
 GOARCH ?= amd64
 
 define createExecutable
+	$(let _GOOS _GOARCH, $(or $(1),$(GOOS)) $(or $(2),$(GOARCH)), \
 	CGO_ENABLED=0 \
-	GOOS=$(GOOS) \
-	GOARCH=$(GOARCH) \
+	GOOS=$(_GOOS) \
+	GOARCH=$(_GOARCH) \
 	$(GO_BIN) build \
 		-trimpath \
 		-ldflags="-s -w" \
-		-o ./dest/mule \
-		./interlocutor
+		-o ./dest/mule-$(_GOOS)-$(_GOARCH)$(if $(call eq, $(_GOOS), windows),.exe) \
+		./interlocutor)
 endef
