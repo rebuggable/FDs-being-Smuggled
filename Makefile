@@ -4,8 +4,9 @@ include Makefiles/createImageOfEphemeral.mk
 include Makefiles/deleteImage.mk
 include Makefiles/createExecutable.mk
 include Makefiles/dispatch.mk
+include Makefiles/actuateRelease.mk
 
-.PHONY: build all image run executable clean engine dependencies
+.PHONY: build all image run executable clean engine dependencies release
 
 # make dependencies
 dependencies:
@@ -39,6 +40,17 @@ clean:
 	rm -r ./dest ; \
 	$(call deleteImage, a-mule-ephemeral) ; \
 	$(call deleteImage, a-mule-engine)
+
+# make release image engine
+# make release image ephemeral
+# make release image all
+
+# make release executable
+# make release all
+# make release
+release:
+	@$(call dispatch,all,actuateExecutableRelease)
+	@$(call dispatch,executable,actuateExecutableRelease)
 
 all:
 	@:
