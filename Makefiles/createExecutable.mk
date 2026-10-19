@@ -1,8 +1,8 @@
 include Makefiles/binaries.mk
 include Makefiles/dispatch.mk
 
-GOOS ?= linux
-GOARCH ?= amd64
+GOOS ?= $(shell $(GO_BIN) env GOHOSTOS)
+GOARCH ?= $(shell $(GO_BIN) env GOHOSTARCH)
 
 define createExecutable
 	$(let _GOOS _GOARCH, $(or $(1),$(GOOS)) $(or $(2),$(GOARCH)), \
