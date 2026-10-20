@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "git",
     "VSCode",
-    "Makefile"
+    "Makefile",
+    "Github"
   ]
 }
