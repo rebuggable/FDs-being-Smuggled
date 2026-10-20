@@ -7,7 +7,7 @@ include Makefiles/dispatch.mk
 include Makefiles/actuateRelease.mk
 include Makefiles/metadata.mk
 
-.PHONY: build all image run executable clean engine dependencies release
+.PHONY: build all image run executable clean engine dependencies release version
 
 # make dependencies
 dependencies:
