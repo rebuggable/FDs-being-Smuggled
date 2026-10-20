@@ -1,0 +1,35 @@
+name: Publish Docker Image Artifacts to GHCR
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Actuate build and publish them via Makefile
+        run: make image all
+        
+      - name: Publish Image Engine
+        run: |
+          docker tag a-mule-engine:latest ghcr.io/${{ github.repository_owner }}/a-mule-engine:latest
+          docker push ghcr.io/${{ github.repository_owner }}/a-mule-engine:latest
+
+      - name: Publish Image Ephemeral
+        run: |
+          docker tag a-mule-ephemeral:latest ghcr.io/${{ github.repository_owner }}/a-mule-ephemeral:latest
+          docker push ghcr.io/${{ github.repository_owner }}/a-mule-ephemeral:latest
