@@ -5,6 +5,7 @@ include Makefiles/deleteImage.mk
 include Makefiles/createExecutable.mk
 include Makefiles/dispatch.mk
 include Makefiles/actuateRelease.mk
+include Makefiles/metadata.mk
 
 .PHONY: build all image run executable clean engine dependencies release
 
@@ -60,3 +61,6 @@ executable:
 
 engine:
 	@:
+
+version:
+	@echo $(VERSION)

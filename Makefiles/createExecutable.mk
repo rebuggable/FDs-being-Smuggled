@@ -1,5 +1,6 @@
 include Makefiles/binaries.mk
 include Makefiles/dispatch.mk
+include Makefiles/metadata.mk
 
 GOOS ?= $(shell $(GO_BIN) env GOHOSTOS)
 GOARCH ?= $(shell $(GO_BIN) env GOHOSTARCH)
@@ -12,6 +13,6 @@ define createExecutable
 	$(GO_BIN) build \
 		-trimpath \
 		-ldflags="-s -w" \
-		-o ./dest/mule-$(_GOOS)-$(_GOARCH)$(if $(call eq, $(_GOOS), windows),.exe) \
+		-o ./dest/mule-$(VERSION)-$(_GOOS)-$(_GOARCH)$(if $(call eq, $(_GOOS), windows),.exe) \
 		./interlocutor)
 endef
